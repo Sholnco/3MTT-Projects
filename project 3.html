@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .calculator {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 320px;
+    }
+    .display {
+      height: 60px;
+      background: #222;
+      color: #fff;
+      font-size: 2em;
+      text-align: right;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      overflow: auto;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      padding: 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 5px;
+      background: #f1f1f1;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #ddd;
+    }
+    .operator {
+      background: #5f27cd;
+      color: white;
+    }
+    .equal {
+      background: #10ac84;
+      color: white;
+    }
+    .clear {
+      background: #ee5253;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <div id="display" class="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()" class="clear">C</button>
+      <button onclick="inputValue('/')" class="operator">÷</button>
+      <button onclick="inputValue('*')" class="operator">×</button>
+      <button onclick="inputValue('-')" class="operator">−</button>
+      
+      <button onclick="inputValue('7')">7</button>
+      <button onclick="inputValue('8')">8</button>
+      <button onclick="inputValue('9')">9</button>
+      <button onclick="inputValue('+')" class="operator">+</button>
+      
+      <button onclick="inputValue('4')">4</button>
+      <button onclick="inputValue('5')">5</button>
+      <button onclick="inputValue('6')">6</button>
+      <button onclick="calculate()" class="equal" rowspan="2">=</button>
+      
+      <button onclick="inputValue('1')">1</button>
+      <button onclick="inputValue('2')">2</button>
+      <button onclick="inputValue('3')">3</button>
+      
+      <button onclick="inputValue('0')" style="grid-column: span 2;">0</button>
+      <button onclick="inputValue('.')">.</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+    let currentInput = "";
+
+    function inputValue(val) {
+      if (display.innerText === "0" && val !== '.') {
+        currentInput = val;
+      } else {
+        currentInput += val;
+      }
+      display.innerText = currentInput;
+    }
+
+    function clearDisplay() {
+      currentInput = "";
+      display.innerText = "0";
+    }
+
+    function calculate() {
+      try {
+        currentInput = eval(currentInput).toString();
+        display.innerText = currentInput;
+      } catch (e) {
+        display.innerText = "Error";
+        currentInput = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
